@@ -5,6 +5,10 @@ use Zend\Diactoros\Response\HtmlResponse;
 
 /* @var $app App */
 
+/* connect a module by simply requiring the module declaration php file */
+
+// require PROJECT_FOLDER . '/vendor/my/module/declarations.php';
+
 /* declare middlewares in delayed function : */
 
 //$app->delayed(function($app) {
