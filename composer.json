@@ -1,6 +1,6 @@
 {
     "name": "cevantime/sherpa-skeleton",
-    "description": "My Sherpa Project",
+    "description": "A basic skeleton for sherpa framework",
     "license": "MIT",
     "require": {
         "php": ">=7.1",
