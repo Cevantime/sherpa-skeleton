@@ -1,6 +1,6 @@
 <?php
 
-use Harp\App\App;
+use Sherpa\App\App;
 use Symfony\Component\Dotenv\Dotenv;
 use Zend\Diactoros\ServerRequestFactory;
 
@@ -29,7 +29,7 @@ if($debug) {
 
 $app = new App($debug);
 
-require_once PROJECT_FOLDER . '/harp-app/declarations.php';
+require_once PROJECT_FOLDER . '/vendor/cevantime/sherpa-framework/declarations.php';
 
 require_once APP_PATH . '/app.php';
 
