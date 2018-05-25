@@ -2,20 +2,17 @@
 
 use App\App;
 use Symfony\Component\Dotenv\Dotenv;
-use Zend\Diactoros\ServerRequestFactory;
 
-define('PROJECT_FOLDER', realpath('..'));
-define('PUBLIC_PATH', __DIR__);
-define('APP_PATH', PROJECT_FOLDER . '/src');
+$projectDir = realpath('..');
 
-require PROJECT_FOLDER . '/vendor/autoload.php';
+require $projectDir . '/vendor/autoload.php';
 
 // The check is to ensure we don't use .env in production
 if (!isset($_SERVER['APP_ENV'])) {
     if (!class_exists(Dotenv::class)) {
         throw new RuntimeException('APP_ENV environment variable is not defined. You need to define environment variables for configuration or add "symfony/dotenv" as a Composer dependency to load variables from a .env file.');
     }
-    (new Dotenv())->load(PROJECT_FOLDER.'/.env');
+    (new Dotenv())->load($projectDir.'/.env');
 }
 
 $env = $_SERVER['APP_ENV'] ?? 'dev';
@@ -26,19 +23,8 @@ if($debug) {
     error_reporting(E_ALL);
 }
 
-
 $app = new App($debug);
 
-require_once PROJECT_FOLDER . '/vendor/cevantime/sherpa-framework/declarations.php';
+$app->addDeclaration(\App\Declarations::class);
 
-require_once APP_PATH . '/declarations.php';
-
-$request = ServerRequestFactory::fromGlobals();
-
-$response = $app->handle($request);
-
-$emitter = $app->get('response.emitter');
-
-$emitter->emit($response);
-
-$app->terminate();
+$app->bootstrap();
